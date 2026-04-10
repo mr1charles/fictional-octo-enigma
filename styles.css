@@ -1,0 +1,51 @@
+:root {
+  --bg: #0f1116;
+  --panel: #1b2230;
+  --accent: #4cb5ff;
+  --text: #e8f2ff;
+  --scanline: 0.2;
+}
+body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+body.th-blue { --bg: #0f1116; --panel: #1b2230; --accent: #4cb5ff; }
+body.th-dark { --bg: #07080d; --panel: #11141e; --accent: #8f9fff; }
+body.th-pink { --bg: #241520; --panel: #3d2340; --accent: #ff7ac0; }
+body.th-green { --bg: #0e1c16; --panel: #1a3228; --accent: #56da8d; }
+
+.emu-shell { max-width: 960px; margin: 14px auto; padding: 12px; display: grid; gap: 10px; filter: drop-shadow(0 8px 20px #0009); }
+.screen { border: 2px solid #fff2; border-radius: 12px; background: linear-gradient(160deg, #fff1, #0003); overflow: hidden; position: relative; }
+.top-screen { height: 300px; }
+.bottom-screen { height: 420px; }
+.hud { display: flex; justify-content: space-between; padding: 8px 10px; font-size: 12px; background: #0005; position: absolute; width: 100%; z-index: 4; }
+canvas { image-rendering: pixelated; display: block; width: 100%; height: 100%; background: #000; }
+.touch-overlay { position: absolute; inset: 0; z-index: 3; }
+.menu-panel { position: absolute; inset: 44px 8px 8px; z-index: 4; background: #10192aaa; backdrop-filter: blur(4px); border-radius: 8px; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; padding: 8px; }
+.toolbar, .folders { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn, .folder-tab { border: 1px solid #fff2; background: var(--panel); color: var(--text); border-radius: 8px; padding: 6px 8px; cursor: pointer; }
+.folder-tab.active { outline: 2px solid var(--accent); }
+.library-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; overflow: auto; }
+.game-card { border: 1px solid #fff2; border-radius: 10px; background: #fff1; padding: 6px; cursor: pointer; text-align: center; }
+.game-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.game-card .meta { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.controls-strip { display: grid; grid-template-columns: 2fr 1fr 2fr 1fr; gap: 10px; align-items: center; background: #0d1320; padding: 10px; border-radius: 12px; border: 2px solid #fff2; }
+.dpad, .abxy, .shoulders { display: grid; gap: 6px; }
+.dpad { grid-template-columns: repeat(2, 44px); }
+.abxy { grid-template-columns: repeat(2, 44px); justify-content: end; }
+.controls-strip button, .circle-pad { background: #1f2a40; border: 1px solid #fff2; color: var(--text); border-radius: 50%; width: 44px; height: 44px; cursor: pointer; }
+.circle-pad { display: grid; place-items: center; border-radius: 12px; width: 72px; height: 72px; }
+
+.settings-modal { position: fixed; inset: 10% auto auto 50%; transform: translateX(-50%); width: min(420px, 92vw); background: #111d30; border: 2px solid #fff3; border-radius: 12px; z-index: 99; padding: 14px; display: grid; gap: 10px; }
+.settings-modal label { display: grid; gap: 4px; font-size: 14px; }
+.hidden { display: none !important; }
+.drop-zone { position: fixed; inset: 0; display: grid; place-items: center; background: #0a0f18cc; color: #fff; font-size: 28px; z-index: 100; border: 3px dashed var(--accent); }
+
+.boot-overlay { position: fixed; inset: 0; background: #000; color: #fff; z-index: 120; display: grid; place-items: center; text-align: center; animation: fadeOut 2.2s forwards; }
+.boot-logo { font-size: 40px; font-weight: 700; }
+.boot-sub { opacity: 0.8; }
+@keyframes fadeOut { 0%, 75% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+body.shader-crt canvas { filter: contrast(1.15) saturate(1.1); }
+body.shader-crt .screen::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, #0000, #0000 2px, rgba(0,0,0,var(--scanline)) 3px);
+}
